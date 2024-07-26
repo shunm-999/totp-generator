@@ -1,0 +1,19 @@
+{
+  "name": "totp-generator-script",
+  "version": "1.0.0",
+  "description": "totp generator",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shunm-999/totp-generator.git"
+  },
+  "author": "shunm-999",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/shunm-999/totp-generator/issues"
+  },
+  "homepage": "https://github.com/shunm-999/totp-generator#readme"
+}
