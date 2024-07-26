@@ -1,9 +1,12 @@
 {
-  "name": "totp-generator-script",
+  "name": "@shunm-999/totp-generator-script",
   "version": "1.0.0",
   "description": "totp generator",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
+    "build": "tsc",
+    "prepare": "npm run build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -15,5 +18,8 @@
   "bugs": {
     "url": "https://github.com/shunm-999/totp-generator/issues"
   },
-  "homepage": "https://github.com/shunm-999/totp-generator#readme"
+  "homepage": "https://github.com/shunm-999/totp-generator#readme",
+  "dependencies": {
+    "typescript": "^5.5.4"
+  }
 }
