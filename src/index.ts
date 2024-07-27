@@ -1,12 +1,7 @@
-import GenerateHashUseCase from "./lib/generate_hash";
-import GenerateHtopUseCase from "./lib/generate_htop";
+import Totp from "./totp";
+import GenerateHashKeyUseCase from "./lib/generate_hash_key";
 
-const generateHash = GenerateHashUseCase.getInstance();
-const generateHtop = GenerateHtopUseCase.getInstance();
-
-const hashString = generateHash.invoke("secret", "Hello, World!");
-
-const htop = generateHtop.invoke(hashString, 6);
-
-console.log(hashString);
-console.log(htop);
+GenerateHashKeyUseCase.getInstance().invoke().then((key) => {
+    const totp = new Totp().generate(key)
+    console.log(totp);
+});

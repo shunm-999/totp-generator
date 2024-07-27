@@ -5,9 +5,9 @@ export default class GenerateHtopUseCase {
         return new GenerateHtopUseCase();
     }
 
-    invoke(hashString: string, digit: number): number {
+    invoke(hashString: string, digits: number): number {
         const binaryCode = this.generateDynamicBinaryCode(hashString);
-        return this.truncate(binaryCode, digit);
+        return this.truncate(binaryCode, digits);
     }
 
     private generateDynamicBinaryCode(hashString: string): number {
@@ -31,9 +31,13 @@ export default class GenerateHtopUseCase {
     }
 
     private hexToBytes(hexString: string): number[] {
+        // Adding one byte to get the right conversion
+        // Values starting with "0" can be converted
+        const hexStringAddedByte = "10" + hexString
+
         let bytes: number[] = [];
-        for (let i = 0; i < hexString.length; i += 2) {
-            bytes.push(parseInt(hexString.substring(i, i + 2), 16));
+        for (let i = 0; i < hexStringAddedByte.length; i += 2) {
+            bytes.push(parseInt(hexStringAddedByte.substring(i, i + 2), 16));
         }
         return bytes;
     }

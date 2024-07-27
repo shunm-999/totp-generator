@@ -1,8 +1,6 @@
 import {createHmac} from 'node:crypto'
-
-export interface HashAlgorithm {
-    algorithm: 'sha1' | 'sha256'
-}
+import {HashAlgorithm} from "./hash_algorithm";
+import {KeyObject} from "crypto";
 
 export default class GenerateHashUseCase {
     static getInstance(): GenerateHashUseCase {
@@ -10,17 +8,17 @@ export default class GenerateHashUseCase {
     }
 
     invoke(
-        secret: string,
-        data: string,
+        key: KeyObject,
+        text: string,
         algorithm: HashAlgorithm = {
-            algorithm: 'sha256',
+            name: 'sha1',
         }
     ): string {
         return createHmac(
-            algorithm.algorithm,
-            secret
+            algorithm.name,
+            key
         )
-            .update(Buffer.from(data, 'utf-8'))
+            .update(Buffer.from(text, 'utf-8'))
             .digest('hex')
     }
 }
