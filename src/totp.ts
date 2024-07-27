@@ -1,8 +1,9 @@
 import Htop from "./hotp";
-import {HashKey} from "./generate_hash_key";
+import {HashAlgorithm} from "./lib/hash_algorithm";
 
 export interface TotpOption {
     digits: number,
+    algorithm?: HashAlgorithm,
     period: number,
     timestamp: number
 }
@@ -13,29 +14,21 @@ export class Totp {
     }
 
     generate(
-        key: HashKey,
+        secret: string,
         option?: Partial<TotpOption>,
     ): string {
         const digits = option?.digits ?? 6;
-        const hashAlgorithm = key.algorithm;
-        const period = (option?.period ?? 60) * 1000;
+        const hashAlgorithm = option?.algorithm;
+        const period = (option?.period ?? 30) * 1000;
         const timestamp = option?.timestamp ?? Date.now();
 
         const timeStep = Math.floor(timestamp / period);
-        let timeStepString = timeStep.toString()
-        while (timeStepString.length < 16) {
-            timeStepString = "0" + timeStepString;
-        }
 
-        const otp = this.htop.generate(key.key, timeStepString, {
+        const otp = this.htop.generate(secret, timeStep, {
             digits: digits,
             hashAlgorithm: hashAlgorithm,
         })
 
-        let result = otp.toString()
-        while (result.length < digits) {
-            result = "0" + result
-        }
-        return result
+        return otp.toString().padStart(6, '0')
     }
 }

@@ -1,16 +1,8 @@
 import {HashAlgorithm} from "./lib/hash_algorithm";
-import {KeyObject} from "crypto";
+import {bufferToHexString} from "./lib/util/hex_to_bytes";
 
-export class HashKey {
-    constructor(
-        readonly key: KeyObject,
-        readonly algorithm: HashAlgorithm,
-    ) {
-    }
-}
-
-export class GenerateHashKey {
-    static async invoke(algorithm: HashAlgorithm = {name: 'sha1'}): Promise<HashKey> {
+export class GenerateSecret {
+    static async generate(algorithm: HashAlgorithm = {name: 'sha1'}): Promise<string> {
         let hashAlgorithm = 'SHA1'
         switch (algorithm.name) {
             case "sha1":
@@ -31,9 +23,7 @@ export class GenerateHashKey {
             true,
             ["verify"]
         );
-        return {
-            key: KeyObject.from(key),
-            algorithm: algorithm
-        }
+        const exportedKey = await crypto.subtle.exportKey("raw", key)
+        return bufferToHexString(exportedKey)
     }
 }
