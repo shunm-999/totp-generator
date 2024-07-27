@@ -1,4 +1,4 @@
 import {Totp, TotpOption} from "./totp";
-import {GenerateSecret} from "./generate_hash_key";
+import {GenerateSecret} from "./generate_secret";
 
 export {Totp, TotpOption, GenerateSecret};

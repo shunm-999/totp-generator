@@ -10,7 +10,7 @@ export function hexStringToBytes(hexString: string): Uint8Array {
     }
     const byteArray = new Uint8Array(hexString.length / 2);
     for (let i = 0; i < hexString.length; i += 2) {
-        byteArray[i / 2] = parseInt(hexString.substring(i, 1 + 2), 16);
+        byteArray[i / 2] = parseInt(hexString.substring(i, i + 2), 16);
     }
     return byteArray;
 }
