@@ -1,5 +1,5 @@
 import Htop from "./hotp";
-import {HashKey} from "./lib/generate_hash_key";
+import {HashKey} from "./generate_hash_key";
 
 export interface TotpOption {
     digits: number,
@@ -7,7 +7,7 @@ export interface TotpOption {
     timestamp: number
 }
 
-export default class Totp {
+export class Totp {
 
     constructor(private readonly htop: Htop = new Htop()) {
     }

@@ -1,17 +1,16 @@
-import {HashAlgorithm} from "./hash_algorithm";
+import {HashAlgorithm} from "./lib/hash_algorithm";
 import {KeyObject} from "crypto";
 
-export interface HashKey {
-    key: KeyObject;
-    algorithm: HashAlgorithm;
+export class HashKey {
+    constructor(
+        readonly key: KeyObject,
+        readonly algorithm: HashAlgorithm,
+    ) {
+    }
 }
 
-export default class GenerateHashKeyUseCase {
-    static getInstance(): GenerateHashKeyUseCase {
-        return new GenerateHashKeyUseCase();
-    }
-
-    async invoke(algorithm: HashAlgorithm = {name: 'sha1'}): Promise<HashKey> {
+export class GenerateHashKey {
+    static async invoke(algorithm: HashAlgorithm = {name: 'sha1'}): Promise<HashKey> {
         let hashAlgorithm = 'SHA1'
         switch (algorithm.name) {
             case "sha1":
@@ -29,7 +28,7 @@ export default class GenerateHashKeyUseCase {
                 name: 'HMAC',
                 hash: hashAlgorithm
             },
-            false,
+            true,
             ["verify"]
         );
         return {
