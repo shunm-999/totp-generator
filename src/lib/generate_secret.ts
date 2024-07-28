@@ -1,5 +1,5 @@
-import {HashAlgorithm} from "./lib/hash_algorithm";
-import {bufferToHexString} from "./lib/util/hex_to_bytes";
+import {HashAlgorithm} from "./hash_algorithm";
+import {bufferToHexString} from "./util/hex_to_bytes";
 
 export class SecretGenerator {
     async generate(algorithm: HashAlgorithm = {name: 'sha1'}): Promise<string> {

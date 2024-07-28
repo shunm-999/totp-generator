@@ -1,5 +1,6 @@
 import {Hotp, HotpOption} from "./hotp";
 import {Totp, TotpOption} from "./totp";
-import {SecretGenerator} from "./generate_secret";
+import {SecretGenerator} from "./lib/generate_secret";
+import {HashAlgorithm} from "./lib/hash_algorithm";
 
-export {SecretGenerator, Hotp, HotpOption, Totp, TotpOption};
+export {SecretGenerator, HashAlgorithm, Hotp, HotpOption, Totp, TotpOption};
