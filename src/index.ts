@@ -1,4 +1,5 @@
+import {Hotp, HotpOption} from "./hotp";
 import {Totp, TotpOption} from "./totp";
-import {GenerateSecret} from "./generate_secret";
+import {SecretGenerator} from "./generate_secret";
 
-export {Totp, TotpOption, GenerateSecret};
+export {SecretGenerator, Hotp, HotpOption, Totp, TotpOption};

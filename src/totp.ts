@@ -1,20 +1,20 @@
-import Htop from "./hotp";
+import {Hotp} from "./hotp";
 import {HashAlgorithm} from "./lib/hash_algorithm";
 
 export interface TotpOption {
-    digits: number,
-    algorithm: HashAlgorithm,
-    period: number,
-    timestamp: number
+    digits?: number,
+    algorithm?: HashAlgorithm,
+    period?: number,
+    timestamp?: number
 }
 
 export class Totp {
 
-    constructor(private readonly htop: Htop = new Htop()) {
+    constructor(private readonly hotp: Hotp = new Hotp()) {
     }
 
     generate(
-        secret: string,
+        secretHexString: string,
         {
             digits,
             algorithm,
@@ -30,9 +30,9 @@ export class Totp {
         const periodMs = (period ?? 30) * 1000;
         const timeStep = Math.floor((timestamp ?? Date.now()) / periodMs);
 
-        const otp = this.htop.generate(secret, timeStep, {
+        const otp = this.hotp.generate(secretHexString, timeStep, {
             digits: digits,
-            hashAlgorithm: algorithm,
+            algorithm: algorithm,
         })
 
         return otp.toString().padStart(6, '0')

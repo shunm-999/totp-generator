@@ -3,26 +3,20 @@ import {bufferToHexString} from "./lib/util/hex_to_bytes";
 
 export class SecretGenerator {
     async generate(algorithm: HashAlgorithm = {name: 'sha1'}): Promise<string> {
-        let hashAlgorithm = 'SHA-1'
+        let keyLength: number
         switch (algorithm.name) {
             case "sha1":
-                hashAlgorithm = 'SHA-1'
+                keyLength = 20;
                 break;
             case "sha256":
-                hashAlgorithm = 'SHA-256'
+                keyLength = 32;
                 break;
             case "sha512":
-                hashAlgorithm = 'SHA-512'
+                keyLength = 64;
                 break;
         }
-        let key = await crypto.subtle.generateKey({
-                name: 'HMAC',
-                hash: hashAlgorithm
-            },
-            true,
-            ["verify"]
-        );
-        const exportedKey = await crypto.subtle.exportKey("raw", key)
-        return bufferToHexString(exportedKey)
+        const key = new Uint8Array(keyLength);
+        crypto.getRandomValues(key);
+        return bufferToHexString(key)
     }
 }

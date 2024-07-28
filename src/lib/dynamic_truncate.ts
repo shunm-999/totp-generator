@@ -16,7 +16,7 @@ export default class DynamicTruncateUseCase {
 
         assert(hexToBytes.length >= 20, "hash length must be 20 or more");
 
-        const offset = hexToBytes[19] & 0xf;
+        const offset = hexToBytes[hexToBytes.length - 1] & 0xf;
 
         return (hexToBytes[offset] & 0x7f) << 24
             | (hexToBytes[offset + 1] & 0xff) << 16

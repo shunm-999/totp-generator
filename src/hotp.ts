@@ -2,12 +2,12 @@ import GenerateHmacUseCase from "./lib/generate_hmac";
 import DynamicTruncateUseCase from "./lib/dynamic_truncate";
 import {HashAlgorithm} from "./lib/hash_algorithm";
 
-export interface HtopOption {
+export interface HotpOption {
     digits: number
-    hashAlgorithm: HashAlgorithm
+    algorithm: HashAlgorithm
 }
 
-export default class Htop {
+export class Hotp {
 
     constructor(
         private readonly generateHmacUseCase: GenerateHmacUseCase = GenerateHmacUseCase.getInstance(),
@@ -16,14 +16,19 @@ export default class Htop {
     }
 
     generate(
-        secret: string,
+        secretHexString: string,
         counter: number,
-        option?: Partial<HtopOption>
+        {
+            digits,
+            algorithm,
+        }: Partial<HotpOption> = {
+            digits: 6,
+            algorithm: {name: 'sha1'}
+        }
     ): number {
-        const digits = option?.digits ?? 6
         const counterBytes = this.numberToUint8Array(counter)
-        const hmac = this.generateHmacUseCase.invoke(secret, counterBytes, option?.hashAlgorithm);
-        return this.dynamicTruncateUseCase.invoke(hmac, digits);
+        const hmac = this.generateHmacUseCase.invoke(secretHexString, counterBytes, algorithm ?? {name: 'sha1'});
+        return this.dynamicTruncateUseCase.invoke(hmac, digits ?? 6);
     }
 
     private numberToUint8Array(number: number) {

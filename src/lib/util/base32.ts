@@ -6,7 +6,7 @@ export function base32Encode(bytes: Uint8Array): string {
 }
 
 function numberToBitString(num: number): string {
-    return num.toString(2);
+    return num.toString(2).padStart(8, '0');
 }
 
 function byteArrayToBitString(bytes: Uint8Array) {

@@ -8,15 +8,13 @@ export default class GenerateHmacUseCase {
     }
 
     invoke(
-        secret: string,
+        secretHexString: string,
         counter: Uint8Array,
-        algorithm: HashAlgorithm = {
-            name: 'sha1',
-        }
+        algorithm: HashAlgorithm
     ): string {
         return createHmac(
             algorithm.name,
-            hexStringToBytes(secret)
+            hexStringToBytes(secretHexString)
         )
             .update(counter)
             .digest('hex')
