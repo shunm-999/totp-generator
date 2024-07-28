@@ -25,9 +25,7 @@ const hashAlgorithm: HashAlgorithm = {
     name: "sha1"
 };
 
-new SecretGenerator().generate(hashAlgorithm).then((secret) => {
-    console.log("secret", secret);
-});
+const secret = new SecretGenerator().generate(hashAlgorithm)
 ```
 
 **Generate a HOTP**
@@ -76,26 +74,24 @@ import { SecretGenerator } from "./generate_secret";
 import { HashAlgorithm } from "./lib/hash_algorithm";
 import OtpAuthUri from "./otp_auth_uri";
 
-export { Hotp, HotpOption, Totp, TotpOption, SecretGenerator };
-
 const hashAlgorithm: HashAlgorithm = {
     name: "sha1"
 };
 
-new SecretGenerator().generate(hashAlgorithm).then((secret) => {
-    console.log("secret", secret);
+const secret = new SecretGenerator().generate(hashAlgorithm)
 
-    const totp = new Totp().generate(secret);
-    console.log("TOTP:", totp);
+console.log("secret", secret);
 
-    const hotp = new Hotp().generate(secret, 1);
-    console.log("HOTP:", hotp);
+const totp = new Totp().generate(secret);
+console.log("TOTP:", totp);
 
-    const otpAuthUri = new OtpAuthUri().generate({
-        issuer: 'TEST WEB SERVICE',
-        accountName: 'user.email@gmail.com',
-        secret: secret
-    });
-    console.log("OTPAuth URI:", otpAuthUri);
+const hotp = new Hotp().generate(secret, 1);
+console.log("HOTP:", hotp);
+
+const otpAuthUri = new OtpAuthUri().generate({
+    issuer: 'TEST WEB SERVICE',
+    accountName: 'user.email@gmail.com',
+    secret: secret
 });
+console.log("OTPAuth URI:", otpAuthUri);
 ```

@@ -2,7 +2,7 @@ import {HashAlgorithm} from "./hash_algorithm";
 import {bufferToHexString} from "./util/hex_to_bytes";
 
 export class SecretGenerator {
-    async generate(algorithm: HashAlgorithm = {name: 'sha1'}): Promise<string> {
+    generate(algorithm: HashAlgorithm = {name: 'sha1'}): string {
         let keyLength: number
         switch (algorithm.name) {
             case "sha1":
