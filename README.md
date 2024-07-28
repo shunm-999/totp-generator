@@ -9,11 +9,7 @@ It also provides functionality to generate OTP authentication URIs.
 First, import the necessary modules.
 
 ```typescript
-import { Hotp, HotpOption } from "./hotp";
-import { Totp, TotpOption } from "./totp";
-import { SecretGenerator } from "./generate_secret";
-import { HashAlgorithm } from "./lib/hash_algorithm";
-import OtpAuthUri from "./otp_auth_uri";
+import {type HashAlgorithm, Hotp, OtpAuthUri, SecretGenerator, Totp} from "@shunm-999/totp-generator";
 ```
 
 **Generate a secret key**
@@ -68,11 +64,7 @@ console.log("OTPAuth URI:", otpAuthUri);
 **Full Example Code**
 
 ```typescript
-import { Hotp, HotpOption } from "./hotp";
-import { Totp, TotpOption } from "./totp";
-import { SecretGenerator } from "./generate_secret";
-import { HashAlgorithm } from "./lib/hash_algorithm";
-import OtpAuthUri from "./otp_auth_uri";
+import {type HashAlgorithm, Hotp, OtpAuthUri, SecretGenerator, Totp} from "@shunm-999/totp-generator";
 
 const hashAlgorithm: HashAlgorithm = {
     name: "sha1"
