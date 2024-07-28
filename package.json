@@ -1,5 +1,5 @@
 {
-  "name": "@shunm-999/totp-generator-script",
+  "name": "@shunm-999/totp-generator",
   "version": "1.0.0",
   "description": "totp generator",
   "main": "dist/index.js",
