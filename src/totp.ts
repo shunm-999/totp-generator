@@ -3,7 +3,7 @@ import {HashAlgorithm} from "./lib/hash_algorithm";
 
 export interface TotpOption {
     digits: number,
-    algorithm?: HashAlgorithm,
+    algorithm: HashAlgorithm,
     period: number,
     timestamp: number
 }
@@ -15,18 +15,24 @@ export class Totp {
 
     generate(
         secret: string,
-        option?: Partial<TotpOption>,
+        {
+            digits,
+            algorithm,
+            period,
+            timestamp
+        }: Partial<TotpOption> = {
+            digits: 6,
+            algorithm: {name: 'sha1'},
+            period: 30,
+            timestamp: Date.now()
+        },
     ): string {
-        const digits = option?.digits ?? 6;
-        const hashAlgorithm = option?.algorithm;
-        const period = (option?.period ?? 30) * 1000;
-        const timestamp = option?.timestamp ?? Date.now();
-
-        const timeStep = Math.floor(timestamp / period);
+        const periodMs = (period ?? 30) * 1000;
+        const timeStep = Math.floor((timestamp ?? Date.now()) / periodMs);
 
         const otp = this.htop.generate(secret, timeStep, {
             digits: digits,
-            hashAlgorithm: hashAlgorithm,
+            hashAlgorithm: algorithm,
         })
 
         return otp.toString().padStart(6, '0')
